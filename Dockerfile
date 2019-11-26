@@ -7,7 +7,7 @@ ADD https://dl.k8s.io/v${KUBECTL_VERSION}/kubernetes-client-linux-amd64.tar.gz .
 ADD https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz .
 RUN tar xzf vsts-agent-linux-x64-${AGENT_VERSION}.tar.gz --directory /tmp
 RUN tar xzf kubernetes-client-linux-amd64.tar.gz --strip-components=3 --directory /tmp
-RUN tar xzf docker-${DOCKER_VERSION}.tgz docker/docker --directory /tmp
+RUN tar xzf docker-${DOCKER_VERSION}.tgz --directory /tmp --strip-components=1 docker/docker
 
 
 FROM ubuntu:18.04
