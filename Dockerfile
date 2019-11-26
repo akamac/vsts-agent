@@ -44,4 +44,4 @@ RUN apt-get update && \
 #RUN ./bin/installdependencies.sh
 
 USER vstsagent
-ENTRYPOINT ["entrypoint.sh"]
+CMD ["entrypoint.sh"]
