@@ -1,4 +1,4 @@
-FROM ubuntu:16.04 AS build
+FROM ubuntu:18.04 AS build
 ARG AGENT_VERSION=2.160.1
 ARG KUBECTL_VERSION=1.16.2
 ARG DOCKER_VERSION=18.06.2-ce
@@ -7,11 +7,11 @@ ADD https://dl.k8s.io/v${KUBECTL_VERSION}/kubernetes-client-linux-amd64.tar.gz .
 ADD https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz .
 RUN tar xzf vsts-agent-linux-x64-${AGENT_VERSION}.tar.gz --directory /tmp
 RUN tar xzf kubernetes-client-linux-amd64.tar.gz --strip-components=3 --directory /tmp
-RUN tar xzf docker-${DOCKER_VERSION}.tgz --strip-components=1 --directory /tmp
+RUN tar xzf docker-${DOCKER_VERSION}.tgz docker/docker --directory /tmp
 
 
 
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 LABEL maintainer="alexey.miasoedov@gmail.com"
 
 RUN useradd --system --home /opt/vstsagent --uid 1000 --create-home vstsagent
@@ -29,7 +29,7 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl \
                                                                               git \
-                                                                              libcurl3 \
+#                                                                              libcurl3 \
                                                                               liblttng-ust0 \
                                                                               ca-certificates \
                                                                               python-pip \
