@@ -10,7 +10,6 @@ RUN tar xzf kubernetes-client-linux-amd64.tar.gz --strip-components=3 --director
 RUN tar xzf docker-${DOCKER_VERSION}.tgz docker/docker --directory /tmp
 
 
-
 FROM ubuntu:18.04
 LABEL maintainer="alexey.miasoedov@gmail.com"
 

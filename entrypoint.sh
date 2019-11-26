@@ -2,7 +2,6 @@
 
 set -e
 
-
 cd /opt/vstsagent
 source ./env.sh
 
@@ -12,6 +11,7 @@ unset VSTS_TOKEN # each env var is exposed in TFS UI
 
 cleanup() {
   ./bin/Agent.Listener remove --unattended --auth PAT --token $(cat $VSTS_TOKEN_FILE)
+  kill -TERM $PID
 }
 
 trap 'cleanup; exit 130' INT
@@ -26,7 +26,11 @@ DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1 ./bin/Agent.Listener configure --unatten
                                                                        --replace \
                                                                        --acceptTeeEula & wait $!
 
-# `exec` the node runtime so it's aware of TERM and INT signals
-# AgentService.js understands how to handle agent self-update and restart
-#exec ./externals/node/bin/node ./bin/AgentService.js interactive
-./externals/node/bin/node ./bin/AgentService.js interactive
+./bin/Agent.Listener run &
+
+# http://veithen.io/2014/11/16/sigterm-propagation.html
+PID=$!
+wait $PID
+trap - TERM INT
+wait $PID
+EXIT_STATUS=$?
