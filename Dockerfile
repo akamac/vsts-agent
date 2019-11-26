@@ -17,8 +17,7 @@ RUN useradd --system --home /opt/vstsagent --uid 1000 --create-home vstsagent
 
 WORKDIR /opt/vstsagent
 
-#COPY config .ssh/
-#COPY Intermedia_Root_Certificate_Authority.pem /usr/local/share/ca-certificates/
+COPY Intermedia_Root_Certificate_Authority.pem /usr/local/share/ca-certificates/
 COPY entrypoint.sh /usr/local/bin/
 COPY --from=build --chown=vstsagent:vstsagent /tmp .
 
@@ -28,14 +27,13 @@ RUN apt-get update && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends curl \
                                                                               git \
-#                                                                              libcurl3 \
                                                                               liblttng-ust0 \
                                                                               ca-certificates \
                                                                               python-pip \
                                                                               openssh-client \
                                                                               rsync && \
     rm -rf /var/lib/apt/lists/* && \
-#    update-ca-certificates && \
+    update-ca-certificates && \
     ln -s /opt/vstsagent/kubectl /usr/local/bin/ && \
     ln -s /opt/vstsagent/docker /usr/local/bin/ && \
 #    pip, then pip2 to avoid system pip shell path hashing
