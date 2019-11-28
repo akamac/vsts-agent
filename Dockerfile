@@ -1,7 +1,7 @@
 FROM ubuntu:18.04 AS build
 ARG AGENT_VERSION=2.160.1
 ARG KUBECTL_VERSION=1.16.2
-ARG DOCKER_VERSION=18.06.2-ce
+ARG DOCKER_VERSION=19.03.5
 ADD https://vstsagentpackage.azureedge.net/agent/${AGENT_VERSION}/vsts-agent-linux-x64-${AGENT_VERSION}.tar.gz .
 ADD https://dl.k8s.io/v${KUBECTL_VERSION}/kubernetes-client-linux-amd64.tar.gz .
 ADD https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKER_VERSION}.tgz .
