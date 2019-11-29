@@ -17,7 +17,7 @@ RUN useradd --system --home /opt/vstsagent --uid 1000 --create-home vstsagent
 
 WORKDIR /opt/vstsagent
 
-COPY Intermedia_Root_Certificate_Authority.pem /usr/local/share/ca-certificates/
+COPY Intermedia_Root_Certificate_Authority.crt /usr/local/share/ca-certificates/
 COPY entrypoint.sh /usr/local/bin/
 COPY --from=build --chown=vstsagent:vstsagent /tmp .
 
