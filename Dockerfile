@@ -39,7 +39,7 @@ RUN apt-get update && \
 #    pip, then pip2 to avoid system pip shell path hashing
     pip install --upgrade --no-cache-dir pip && \
     pip2 install --no-cache-dir setuptools && \
-    pip2 install --no-cache-dir awscli==1.16.292 ansible==2.9.1 openshift==0.10.0
+    pip2 install --no-cache-dir awscli==1.16.292
 
 #RUN ./bin/installdependencies.sh
 
